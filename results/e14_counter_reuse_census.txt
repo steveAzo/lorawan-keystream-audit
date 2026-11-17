@@ -1,0 +1,10 @@
+day files 188, with data uplinks 187; gateways 9; capture blocks: 2019-02-08 to 2019-04-05 (57 days); 2020-04-25 to 2020-09-02 (131 days); first-to-last span 573 days
+addresses with data uplinks 8528; with at least one FRMPayload byte 8166; with >= 50 receptions 3008
+frames without the gateway-aware merge: 5233131
+frames with the gateway-aware merge (main): 5231941 (1190 frames absorbed 1190 copies on disjoint gateways within 6 h)
+data-uplink receptions 8056486; counter test (any two rows of a (DevAddr, FCnt, size) triple >= 600 s apart):
+   on receptions (not merged into frames): triples 191211, addresses 1323
+   on frames without the gateway-aware merge: triples 191211, addresses 1323
+   on frames with the gateway-aware merge (main): triples 190886, addresses 1222
+   the same on frames with FRMPayload only (main rule): triples 190847, addresses 1206
+done

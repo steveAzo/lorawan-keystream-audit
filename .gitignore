@@ -1,0 +1,69 @@
+# ---- Datasets and everything derived from them: other parties' traffic (payload ciphertexts, device addresses, DevEUIs)
+/data/
+*.zip
+*.pcap
+*.npz
+*.parquet
+*keys_lorawan*
+
+# ---- Downloaded papers (copyright) and old copies of the workspace
+papers/
+archive/
+release/
+
+# ---- Internal notes and review records
+PAPER4_SCOPING.md
+docs/
+verification/adversarial/
+verification/jobC/
+verification/reimpl/
+verification/povalac_reading/
+verification/jobD/REPORT.md
+verification/jobD/chk_*.py
+verification/jobD/out/
+verification/jobD/out_jobD_run/
+verification/jobD/work/
+verification/jobD/out_summary.txt
+verification/jobD/run_*.log
+
+# ---- Manuscript sources and builds (not public before publication); the figures in draft/figs/ are published
+draft/build/
+draft/deliverables/
+draft/tables/
+draft/*.tex
+draft/refs.bib
+draft/highlights.txt
+draft/ieee.csl
+draft/figs/*.aux
+draft/figs/*.log
+paper_tools/build.sh
+paper_tools/check_draft.py
+paper_tools/check_numbers.py
+paper_tools/make_word.py
+paper_tools/fix_word.py
+paper_tools/clean_labels.py
+paper_tools/make_release.py
+
+# ---- Earlier scoping experiments not used in the paper (E0 to E13, E15a, literature scripts)
+src/lit/
+src/run_chain_jobC_fixes.sh
+src/data/audit_kaggle.py
+src/data/reduce_loed.py
+src/scoping/e[0-9]_*
+src/scoping/e0b_*
+src/scoping/e1[0-3]_*
+src/scoping/e15a_*
+results/e[0-9]_*
+results/e0b_*
+results/e1[0-3]_*
+results/run_chain*.log
+results/fig_data.log
+
+# ---- Python, LaTeX and editor by-products
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

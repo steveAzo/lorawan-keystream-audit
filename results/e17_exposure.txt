@@ -1,0 +1,14 @@
+bucket 0 done
+bucket 1 done
+bucket 2 done
+bucket 3 done
+bucket 4 done
+bucket 5 done
+bucket 6 done
+bucket 7 done
+addresses with related non-identical pairs: 230
+per-address median share of unchanged plaintext bytes, quantiles 10/25/50/75/90: [0.48, 0.5, 0.55, 0.55, 0.67]
+addresses whose median pair has >= 50% unchanged bytes: 200  >= 80%: 9
+distinct ciphertexts under one keystream (max per address, all frames of a triple) quantiles 50/90, max: [2.0, 12.0] 343
+addresses by year of first observed reuse: {2019: 36, 2020: 194}
+done

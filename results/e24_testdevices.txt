@@ -1,0 +1,7 @@
+test-node identifiers from the key files: 1 DevEUI, 2 DevAddr: ['70b3d5cee0000042'] ['00d85395', '01e65ddc']
+liege: data-uplink receptions from the test DevAddrs 0 of 5830; join requests from the test DevEUIs 0
+graz: data-uplink receptions from the test DevAddrs 0 of 1039; join requests from the test DevEUIs 0
+brno: data-uplink receptions from the test DevAddrs 0 of 429434; join requests from the test DevEUIs 0
+wien: data-uplink receptions from the test DevAddrs 0 of 303355; join requests from the test DevEUIs 0
+Brno top-10 confirmed addresses: first byte of DevAddr (hex) and data-uplink receptions: [('de', 19574), ('de', 26367), ('de', 18732), ('de', 18291), ('de', 17721), ('de', 6692), ('aa', 2524), ('00', 959), ('00', 931), ('00', 870)]
+done

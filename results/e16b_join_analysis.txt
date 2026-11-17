@@ -1,0 +1,10 @@
+join requests 139506 DevEUIs 1353 JoinEUIs 81
+joins per DevEUI, quantiles 50/90/99, max: [6.0, 103.0, 1781.8] 21998
+LoED DevNonce: DevEUIs with >= 10 joins 596; DevNonce repeats (n - distinct) 6595, expected under uniform 16-bit nonces 5890.2 (simulated sd 71.3, max of 300 simulations 6061); excess 704.8, top 5 DevEUIs hold 700.4
+   DevEUIs with repeats more than 4 sd above expectation: 11; without the top 5 by excess: repeats 1120 against 1115.6 expected
+   counter-like DevNonce: strict rule (>= 80% of steps equal +1) 0; loss-tolerant rule (>= 80% of steps in +1..+16) 1; constant zero nonce (>= 50% zero) 0; DevEUIs with at least one repeat 70
+   repeats within 60 s of the previous use of that nonce: 3, within 10 min: 19, within 1 h: 98, of 6595
+DevEUI-days with >= 20 joins: 883  DevEUIs: 169  max per day 1857
+share of all join requests from the top 5 / 20 DevEUIs: 37.6% / 62.5%
+DevEUIs that join once only: 346  twice or more: 1007
+done

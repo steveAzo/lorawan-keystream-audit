@@ -1,0 +1,17 @@
+02_Liege.log CRC-valid frames: 19855  data uplinks: 5830  dropped for MHDR RFU or Major not 0: 0  join requests: 905  addresses: 252  concentrators: 1  data uplinks by concentrator number: {1: 5830}
+  join requests: 905  duplicate receptions merged: 0
+  repeated triples: 19
+  frames kept for ciphertext test: 5830
+04_Graz.log CRC-valid frames: 84337  data uplinks: 1039  dropped for MHDR RFU or Major not 0: 1  join requests: 286  addresses: 46  concentrators: 1  data uplinks by concentrator number: {1: 1039}
+  join requests: 286  duplicate receptions merged: 0
+  repeated triples: 2
+  frames kept for ciphertext test: 1039
+07_Brno.log CRC-valid frames: 1272304  data uplinks: 429434  dropped for MHDR RFU or Major not 0: 0  join requests: 15594  addresses: 1023  concentrators: 2  data uplinks by concentrator number: {1: 422799, 2: 6635}
+  join requests: 15594  duplicate receptions merged: 16
+  repeated triples: 20861
+  frames kept for ciphertext test: 428731
+05_Wien.log CRC-valid frames: 1697885  data uplinks: 303355  dropped for MHDR RFU or Major not 0: 2  join requests: 53239  addresses: 1983  concentrators: 2  data uplinks by concentrator number: {1: 303336, 2: 19}
+  join requests: 53239  duplicate receptions merged: 0
+  repeated triples: 2297
+  frames kept for ciphertext test: 303133
+done

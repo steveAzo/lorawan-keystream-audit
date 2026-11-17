@@ -1,0 +1,8 @@
+# Python 3.13.5. Versions used for every result.
+numpy==2.3.3
+pandas==2.3.3
+pyarrow==26.0.0
+matplotlib==3.10.8
+# e26 (message integrity codes with published default keys) only
+cryptography==46.0.3
+# figures 1 and 2 (TikZ diagrams) need pdflatex and pdftoppm (MiKTeX or TeX Live, Poppler)

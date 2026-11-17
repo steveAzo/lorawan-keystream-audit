@@ -1,0 +1,14 @@
+Gate A: (i) counter-flagged addresses, frames without the gateway-aware merge: 1323, confirmed 236 (all flagged: True), precision 17.8%
+Gate A: (i) counter-flagged addresses, frames with the gateway-aware merge (main): 1222, confirmed 236 (all flagged: True), precision 19.3%
+        (ii) addresses with an examined triple 1168, confirmed 236, precision 20.2%
+        examined triples 187884, confirmed 45207, precision 24.1%
+        frames in examined triples 853092, in confirmed triples 193053 (the counter test, on triples it can examine, flags 4.4 times the confirmed frames)
+
+Gate B: confirmed addresses with >= 20 frames: 229, with at least one counter reset: 203; counter drops of more than 64: 1145, of which 16-bit wraps 0; counted as resets 1007
+resets per observed day (median / p90 / max): 0.023 / 0.05 / 1.3
+SF of these addresses: {7: 211, 8: 3, 9: 1, 10: 1, 11: 4, 12: 9}  PHY size top: {33: 161, 57: 15, 40: 12, 42: 9}
+airtime added, share of the address's uplink airtime, rejoin on every boot: median 1.83%  p90 5.43%  mean 2.45%
+airtime added, share of the address's uplink airtime, 8-byte random IV in payload: median 21.35%  p90 21.35%  mean 19.76%
+airtime added, share of the address's uplink airtime, 2-byte epoch with no slack use: median 7.17%  p90 8.80%  mean 7.63%
+frames with slack >= 2 B: median across addresses 5%
+done

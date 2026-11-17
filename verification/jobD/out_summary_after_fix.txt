@@ -1,0 +1,54 @@
+== Povalac bed
+baseline reproduces results/e23_povalac_audit.txt on wien
+mutant | city | flagged addr (frames) | examined triples | unresolved triples | confirmed addr | frames in confirmed | placebo flagged | placebo all | caught | caught, wider rule
+a2_sign_reversed_classify_call | wien | 35 | 1835 | 3 | 28 | 4988 | 0/371 | 0/136239 | yes | yes
+a_sign_reversed | wien | 35 | 1835 | 3 | 28 | 4988 | 371/371 | 136239/136239 | yes | yes
+b1_offset_minus1 | wien | 35 | 1835 | 3 | 7 | 1812 | 0/371 | 1/136239 | yes | yes
+b2_fopts_ignored | wien | 35 | 2293 | 3 | 10 | 1776 | 0/374 | 17/144723 | yes | yes
+c_no_min_gap | wien | 1983 | 1841 | 23615 | 9 | 1783 | 0/2675 | 0/136239 | yes | yes
+d_no_equal_length | wien | 35 | 2293 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | yes
+e_thresh_0.3 | wien | 35 | 1835 | 3 | 27 | 5360 | 93/371 | 36670/136239 | yes | yes
+f_no_size_in_key | wien | 38 | 1917 | 3 | 7 | 1771 | 0/365 | 1/95153 | yes | yes
+g_dup_win_0 | wien | 36 | 1835 | 3 | 7 | 1774 | 0/371 | 0/136239 | yes | yes
+h_ident_gap_0 | wien | 35 | 1838 | 0 | 10 | 1781 | 0/371 | 0/136239 | yes | yes
+r1_no_continuation | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+r2_wraps_counted | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+r3_any_drop | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+r4_last_drop_counted | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+r5_wrap_test_wrong | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+r6_continuation_too_wide | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+x1_gw_disjointness_ignored | wien | 33 | 1835 | 0 | 7 | 1447 | 0/368 | 0/136239 | yes | yes
+x2_no_time_window | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+x3_disjointness_inverted | wien | 33 | 1835 | 0 | 7 | 1447 | 0/368 | 0/136239 | yes | yes
+x4_mask_not_accumulated | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+x5_window_from_previous_frame | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+x6_payload_not_in_frame_key | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+x8_rule_off | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | no | no
+baseline | wien | 35 | 1835 | 3 | 7 | 1770 | 0/371 | 0/136239 | - | -
+Povalac bed: caught 11 of 23 (narrow rule); 12 of 23 (wider rule); not caught (wider rule): r1_no_continuation, r2_wraps_counted, r3_any_drop, r4_last_drop_counted, r5_wrap_test_wrong, r6_continuation_too_wide, x2_no_time_window, x4_mask_not_accumulated, x5_window_from_previous_frame, x6_payload_not_in_frame_key, x8_rule_off
+
+== LoED bed
+baseline reproduces e14, e15b and e18 (frames, merged copies, flagged, confirmed, unresolved, Gate B)
+mutant | frames | xgw | flag | ftrip | exam | ctrip | conf | cframes | unres | ishort | plac | ptot | gb_n | gb_r | gb_res | gb_drop | gb_wrap | syn_bad | caught | what moved
+a2_sign_reversed_classify_call | 883887 | 1190 | 1222 | 190847 | 187884 | 162835 | 972 | 792608 | 36 | 35996 | 0 | 24001 | 810 | 362 | 18380 | 55442 | 298 | 0 | yes | ctrip, conf, cframes, gb_n, gb_r, gb_res, gb_drop, gb_wrap
+a_sign_reversed | 883887 | 1190 | 1222 | 190847 | 187884 | 162835 | 972 | 792608 | 36 | 35996 | 24001 | 24001 | 810 | 362 | 18380 | 55442 | 298 | 0 | yes | ctrip, conf, cframes, plac, gb_n, gb_r, gb_res, gb_drop, gb_wrap
+c_no_min_gap | 883887 | 1190 | 1698 | 198926 | 189984 | 45222 | 246 | 193090 | 55 | 58330 | 0 | 24001 | 237 | 208 | 1014 | 1153 | 0 | 0 | yes | flag, ftrip, exam, ctrip, conf, cframes, unres, ishort, gb_n, gb_r, gb_res, gb_drop
+d_no_equal_length | 883887 | 1190 | 1222 | 190847 | 187897 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 203 | 1007 | 1145 | 0 | 0 | yes | exam
+e_thresh_0.3 | 883887 | 1190 | 1222 | 190847 | 187884 | 133274 | 938 | 724786 | 36 | 35996 | 6553 | 24001 | 850 | 438 | 18705 | 55686 | 284 | 0 | yes | ctrip, conf, cframes, plac, gb_n, gb_r, gb_res, gb_drop, gb_wrap
+g_dup_win_0 | 920089 | 64744 | 1299 | 190991 | 187884 | 45207 | 236 | 214324 | 113 | 53312 | 0 | 24001 | 229 | 203 | 1010 | 1145 | 0 | 1 | yes | frames, xgw, flag, ftrip, cframes, unres, ishort, gb_res, syn_bad
+h_ident_gap_0 | 883887 | 1190 | 1222 | 190847 | 190834 | 48234 | 276 | 204336 | 0 | 0 | 0 | 24001 | 269 | 211 | 1019 | 1180 | 0 | 0 | yes | exam, ctrip, conf, cframes, unres, ishort, gb_n, gb_r, gb_res, gb_drop
+r1_no_continuation | 883887 | 1190 | 1222 | 190847 | 187884 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 212 | 1145 | 1145 | 0 | 2 | yes | gb_r, gb_res, syn_bad
+r2_wraps_counted | 883887 | 1190 | 1222 | 190847 | 187884 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 203 | 1007 | 1145 | 0 | 1 | yes | syn_bad
+r3_any_drop | 883887 | 1190 | 1222 | 190847 | 187884 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 208 | 1947 | 2159 | 0 | 1 | yes | gb_r, gb_res, gb_drop, syn_bad
+r4_last_drop_counted | 883887 | 1190 | 1222 | 190847 | 187884 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 204 | 1012 | 1145 | 0 | 1 | yes | gb_r, gb_res, syn_bad
+r5_wrap_test_wrong | 883887 | 1190 | 1222 | 190847 | 187884 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 203 | 1007 | 1145 | 0 | 1 | yes | syn_bad
+r6_continuation_too_wide | 883887 | 1190 | 1222 | 190847 | 187884 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 212 | 1145 | 1145 | 0 | 2 | yes | gb_r, gb_res, syn_bad
+x1_gw_disjointness_ignored | 854168 | 30909 | 1189 | 187908 | 187884 | 45207 | 236 | 180147 | 4 | 391 | 0 | 24001 | 228 | 203 | 976 | 1116 | 0 | 2 | yes | frames, xgw, flag, ftrip, cframes, unres, ishort, gb_n, gb_res, gb_drop, syn_bad
+x2_no_time_window | 880906 | 4171 | 1222 | 190845 | 187881 | 45204 | 236 | 190068 | 36 | 35977 | 0 | 24001 | 229 | 203 | 1007 | 1145 | 0 | 2 | yes | frames, xgw, ftrip, exam, ctrip, cframes, ishort, syn_bad
+x3_disjointness_inverted | 855319 | 29758 | 1311 | 188308 | 187884 | 45207 | 236 | 180171 | 126 | 852 | 0 | 24001 | 228 | 203 | 976 | 1116 | 0 | 4 | yes | frames, xgw, flag, ftrip, cframes, unres, ishort, gb_n, gb_res, gb_drop, syn_bad
+x4_mask_not_accumulated | 883747 | 1330 | 1222 | 190786 | 187884 | 45207 | 236 | 193042 | 36 | 35882 | 0 | 24001 | 229 | 203 | 1007 | 1145 | 0 | 1 | yes | frames, xgw, ftrip, cframes, ishort, syn_bad
+x5_window_from_previous_frame | 883887 | 1190 | 1222 | 190847 | 187884 | 45207 | 236 | 193053 | 36 | 35996 | 0 | 24001 | 229 | 203 | 1007 | 1145 | 0 | 1 | yes | syn_bad
+x6_payload_not_in_frame_key | 883326 | 1265 | 1222 | 190845 | 187883 | 45207 | 236 | 192878 | 36 | 35963 | 0 | 24001 | 228 | 203 | 1007 | 1145 | 0 | 0 | yes | frames, xgw, ftrip, exam, cframes, ishort, gb_n
+x7_window_24h | None | None | None | None | None | None | None | None | None | None | None | None | None | None | None | None | None | None | yes | frames, xgw, flag, ftrip, exam, ctrip, conf, cframes, unres, ishort, plac, ptot, gb_n, gb_r, gb_res, gb_drop, gb_wrap, syn_bad
+x8_rule_off | 885077 | 0 | 1323 | 191172 | 187884 | 45207 | 236 | 193123 | 137 | 36907 | 0 | 24001 | 229 | 203 | 1007 | 1145 | 0 | 4 | yes | frames, xgw, flag, ftrip, cframes, unres, ishort, syn_bad
+LoED bed: caught 21 of 21; not caught: none

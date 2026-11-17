@@ -1,0 +1,11 @@
+MUTANT m3
+frames: 469800  devices: 435  addresses: 415
+
+capture probability 0.72: groups flagged by counter test 27217, true reuse groups 15407
+  counter test : precision 56.6%  recall 100.0%
+  ciphertext   : precision 100.0%  recall 0.0%  (false positives 0)
+  ADDRESS-LEVEL at c=0.72: true reuse addresses 103, found 1 (recall 1.0%), false 0
+  ciphertext recall by plaintext-constant share u0: {0.3: 0.0, 0.5: 0.0, 0.7: 0.001}
+  ciphertext recall by payload length n: {8: 0.0, 12: 0.001, 20: 0.0, 24: 0.0, 40: 0.0}
+  address-level recall by u0: {0.3: 0.0, 0.5: 0.0, 0.7: 0.026}  by n: {8: 0.0, 12: 0.034, 20: 0.0, 24: 0.0, 40: 0.0}  counts by u0: {0.3: 30, 0.5: 35, 0.7: 38}
+  address level: true reuse addresses 103, ciphertext finds 1 (1%), counter test flags 169 (precision 61%), ciphertext precision 100%

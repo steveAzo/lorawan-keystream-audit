@@ -1,0 +1,1 @@
+trace address (results/fig_counter_trace.csv): frames 868; in the 2020 block 866, of which in confirmed triples 200; before it 2; counted resets inside the 2020 block 3

@@ -1,0 +1,80 @@
+
+===== liege: 5830 data-uplink receptions on the uplink concentrator (all concentrators of the sniffer 5830, by concentrator number {1: 5830}), 5600 frames (same PHY payload within 60 s), 5600 with the gateway-aware merge; 252 addresses; first to last reception 17.8 days
+counter test (any two rows of a triple >= 600 s apart) on receptions: triples 19, addresses 5
+counter test (any two rows of a triple >= 600 s apart) on frames without the gateway-aware merge: triples 19, addresses 5
+counter test (any two rows of a triple >= 600 s apart) on frames with the gateway-aware merge (main): triples 19, addresses 5
+triples with FRMPayload flagged 19; examined (a testable pair) 19; confirmed 11; capped at 80 frames 0; unresolved (only identical pairs < 6 h apart) 0 on 0 addresses not otherwise examined
+confirmed addresses 2 = 0.79% of all addresses; of counter-flagged addresses 2/5 = 40.0% (on receptions 2/5); of examined addresses 2/5 = 40.0%
+frames in confirmed triples 61 (receptions 64); top 1/5 addresses hold 63.9%/100.0%; triples with related pairs 11, with identical-late pairs 0; addresses confirmed only by identical-late pairs 0; frames in flagged triples with FRMPayload 87
+triples with unequal-length pairs 0; flagged triples whose only pairs >= 600 s are unequal-length 0
+   all three concentrators: addresses 252, frames 5600, counter-flagged addresses on frames 5, confirmed addresses 2 (in one set only 0), frames in confirmed triples 61
+   gateway-aware merge off, triple by triple: confirmed triples 11 against 11; removed by the merge 0, added 0
+   sensitivity, gateway-aware merge off: confirmed addresses 2 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 61
+   sensitivity, related pairs from 60 s (identical pairs still >= 6 h): confirmed addresses 2 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 61
+   sensitivity, unequal-length pairs tested on their common prefix: confirmed addresses 2 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 61
+placebo on frames of flagged triples (different addresses, same FCnt and size): 0 related of 7 pairs; 95% upper bound on the per-pair rate 3.5e-01
+placebo on all frames (different addresses, same FCnt and size): 0 related of 4376 pairs; 95% upper bound on the per-pair rate 6.8e-04
+join requests 905 (duplicate receptions merged), DevEUIs 46, max per DevEUI 237; DevEUI-days with >= 20 joins: 5, max per day 55
+liege DevNonce: DevEUIs with >= 10 joins 18; DevNonce repeats (n - distinct) 10, expected under uniform 16-bit nonces 0.7 (simulated sd 0.9, max of 300 simulations 4); excess 9.3, top 5 DevEUIs hold 9.6
+   DevEUIs with repeats more than 4 sd above expectation: 1; without the top 5 by excess: repeats 0 against 0.3 expected
+   counter-like DevNonce: strict rule (>= 80% of steps equal +1) 0; loss-tolerant rule (>= 80% of steps in +1..+16) 0; constant zero nonce (>= 50% zero) 0; DevEUIs with at least one repeat 1
+
+===== graz: 1039 data-uplink receptions on the uplink concentrator (all concentrators of the sniffer 1039, by concentrator number {1: 1039}), 1039 frames (same PHY payload within 60 s), 1039 with the gateway-aware merge; 46 addresses; first to last reception 26.2 days
+counter test (any two rows of a triple >= 600 s apart) on receptions: triples 2, addresses 1
+counter test (any two rows of a triple >= 600 s apart) on frames without the gateway-aware merge: triples 2, addresses 1
+counter test (any two rows of a triple >= 600 s apart) on frames with the gateway-aware merge (main): triples 2, addresses 1
+triples with FRMPayload flagged 2; examined (a testable pair) 0; confirmed 0; capped at 80 frames 0; unresolved (only identical pairs < 6 h apart) 0 on 0 addresses not otherwise examined
+confirmed addresses 0 = 0.00% of all addresses; of counter-flagged addresses 0/1 = 0.0% (on receptions 0/1); of examined addresses 0/0 = 0.0%
+triples with unequal-length pairs 2; flagged triples whose only pairs >= 600 s are unequal-length 2
+   all three concentrators: addresses 46, frames 1039, counter-flagged addresses on frames 1, confirmed addresses 0 (in one set only 0), frames in confirmed triples 0
+   gateway-aware merge off, triple by triple: confirmed triples 0 against 0; removed by the merge 0, added 0
+   sensitivity, gateway-aware merge off: confirmed addresses 0 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 0
+   sensitivity, related pairs from 60 s (identical pairs still >= 6 h): confirmed addresses 0 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 0
+   sensitivity, unequal-length pairs tested on their common prefix: confirmed addresses 0 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 0
+placebo on frames of flagged triples (different addresses, same FCnt and size): 0 related of 0 pairs; 95% upper bound on the per-pair rate 9.5e-01
+placebo on all frames (different addresses, same FCnt and size): 0 related of 21 pairs; 95% upper bound on the per-pair rate 1.3e-01
+join requests 286 (duplicate receptions merged), DevEUIs 7, max per DevEUI 154; DevEUI-days with >= 20 joins: 2, max per day 21
+graz DevNonce: DevEUIs with >= 10 joins 2; DevNonce repeats (n - distinct) 0, expected under uniform 16-bit nonces 0.3 (simulated sd 0.6, max of 300 simulations 2); excess -0.3, top 5 DevEUIs hold -0.3
+   DevEUIs with repeats more than 4 sd above expectation: 0; without the top 5 by excess: repeats 0 against 0.0 expected
+   counter-like DevNonce: strict rule (>= 80% of steps equal +1) 0; loss-tolerant rule (>= 80% of steps in +1..+16) 0; constant zero nonce (>= 50% zero) 0; DevEUIs with at least one repeat 0
+
+===== brno: 422799 data-uplink receptions on the uplink concentrator (all concentrators of the sniffer 429434, by concentrator number {1: 422799, 2: 6635}), 416459 frames (same PHY payload within 60 s), 416459 with the gateway-aware merge; 1023 addresses; first to last reception 43.8 days
+counter test (any two rows of a triple >= 600 s apart) on receptions: triples 20860, addresses 78
+counter test (any two rows of a triple >= 600 s apart) on frames without the gateway-aware merge: triples 20860, addresses 78
+counter test (any two rows of a triple >= 600 s apart) on frames with the gateway-aware merge (main): triples 20860, addresses 78
+triples with FRMPayload flagged 20771; examined (a testable pair) 20723; confirmed 14862; capped at 80 frames 10; unresolved (only identical pairs < 6 h apart) 48 on 15 addresses not otherwise examined
+confirmed addresses 58 = 5.67% of all addresses; of counter-flagged addresses 58/78 = 74.4% (on receptions 58/78); of examined addresses 58/62 = 93.5%
+frames in confirmed triples 111115 (receptions 111125); top 1/5 addresses hold 17.5%/82.9%; triples with related pairs 14753, with identical-late pairs 2878; addresses confirmed only by identical-late pairs 5; frames in flagged triples with FRMPayload 123188
+triples with unequal-length pairs 0; flagged triples whose only pairs >= 600 s are unequal-length 0
+   all three concentrators: addresses 1023, frames 416484, counter-flagged addresses on frames 78, confirmed addresses 58 (in one set only 0), frames in confirmed triples 111141
+   gateway-aware merge off, triple by triple: confirmed triples 14862 against 14862; removed by the merge 0, added 0
+   sensitivity, gateway-aware merge off: confirmed addresses 58 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 111115
+   sensitivity, related pairs from 60 s (identical pairs still >= 6 h): confirmed addresses 58 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 111123
+   sensitivity, unequal-length pairs tested on their common prefix: confirmed addresses 58 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 111115
+placebo on frames of flagged triples (different addresses, same FCnt and size): 0 related of 16296 pairs; 95% upper bound on the per-pair rate 1.8e-04
+placebo on all frames (different addresses, same FCnt and size): 0 related of 225924 pairs; 95% upper bound on the per-pair rate 1.3e-05
+join requests 15578 (duplicate receptions merged), DevEUIs 151, max per DevEUI 11713; DevEUI-days with >= 20 joins: 93, max per day 1004
+brno DevNonce: DevEUIs with >= 10 joins 59; DevNonce repeats (n - distinct) 1070, expected under uniform 16-bit nonces 990.7 (simulated sd 30.4, max of 300 simulations 1104); excess 79.3, top 5 DevEUIs hold 75.6
+   DevEUIs with repeats more than 4 sd above expectation: 6; without the top 5 by excess: repeats 7 against 3.3 expected
+   counter-like DevNonce: strict rule (>= 80% of steps equal +1) 0; loss-tolerant rule (>= 80% of steps in +1..+16) 0; constant zero nonce (>= 50% zero) 0; DevEUIs with at least one repeat 9
+
+===== wien: 303336 data-uplink receptions on the uplink concentrator (all concentrators of the sniffer 303355, by concentrator number {1: 303336, 2: 19}), 262671 frames (same PHY payload within 60 s), 262671 with the gateway-aware merge; 1983 addresses; first to last reception 34.1 days
+counter test (any two rows of a triple >= 600 s apart) on receptions: triples 2297, addresses 36
+counter test (any two rows of a triple >= 600 s apart) on frames without the gateway-aware merge: triples 2296, addresses 35
+counter test (any two rows of a triple >= 600 s apart) on frames with the gateway-aware merge (main): triples 2296, addresses 35
+triples with FRMPayload flagged 2296; examined (a testable pair) 1835; confirmed 544; capped at 80 frames 0; unresolved (only identical pairs < 6 h apart) 3 on 2 addresses not otherwise examined
+confirmed addresses 7 = 0.35% of all addresses; of counter-flagged addresses 7/35 = 20.0% (on receptions 7/36); of examined addresses 7/33 = 21.2%
+frames in confirmed triples 1770 (receptions 1774); top 1/5 addresses hold 59.9%/99.8%; triples with related pairs 544, with identical-late pairs 0; addresses confirmed only by identical-late pairs 0; frames in flagged triples with FRMPayload 7608
+triples with unequal-length pairs 460; flagged triples whose only pairs >= 600 s are unequal-length 458
+   all three concentrators: addresses 1983, frames 262671, counter-flagged addresses on frames 35, confirmed addresses 7 (in one set only 0), frames in confirmed triples 1770
+   gateway-aware merge off, triple by triple: confirmed triples 544 against 544; removed by the merge 0, added 0
+   sensitivity, gateway-aware merge off: confirmed addresses 7 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 1770
+   sensitivity, related pairs from 60 s (identical pairs still >= 6 h): confirmed addresses 8 (not confirmed by the main rule 1, lost 0); frames in confirmed triples 1781
+   sensitivity, unequal-length pairs tested on their common prefix: confirmed addresses 7 (not confirmed by the main rule 0, lost 0); frames in confirmed triples 1770
+placebo on frames of flagged triples (different addresses, same FCnt and size): 0 related of 371 pairs; 95% upper bound on the per-pair rate 8.0e-03
+placebo on all frames (different addresses, same FCnt and size): 0 related of 136239 pairs; 95% upper bound on the per-pair rate 2.2e-05
+join requests 53239 (duplicate receptions merged), DevEUIs 90, max per DevEUI 20570; DevEUI-days with >= 20 joins: 230, max per day 1000
+wien DevNonce: DevEUIs with >= 10 joins 41; DevNonce repeats (n - distinct) 7639, expected under uniform 16-bit nonces 4405.8 (simulated sd 57.1, max of 300 simulations 4603); excess 3233.2, top 5 DevEUIs hold 3188.5
+   DevEUIs with repeats more than 4 sd above expectation: 8; without the top 5 by excess: repeats 1457 against 1412.4 expected
+   counter-like DevNonce: strict rule (>= 80% of steps equal +1) 0; loss-tolerant rule (>= 80% of steps in +1..+16) 0; constant zero nonce (>= 50% zero) 0; DevEUIs with at least one repeat 21
+done

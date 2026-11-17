@@ -1,0 +1,60 @@
+xgw 21600 bucket 0 done
+xgw 21600 bucket 1 done
+xgw 21600 bucket 2 done
+xgw 21600 bucket 3 done
+xgw 21600 bucket 4 done
+xgw 21600 bucket 5 done
+xgw 21600 bucket 6 done
+xgw 21600 bucket 7 done
+tail_p grid agrees with audit_common.related at 1e-6 on all 1338 (k, n) values tested
+pairs >= 600 s apart, equal length: 6653984  of which identical: 152343   (main rule: gateway-aware merge on)
+
+log10 threshold | min gap | identical gap | addresses | triples
+     -3 |    600 s |   1 h |  546 |  47382
+     -3 |    600 s |   6 h |  543 |  47364
+     -3 |    600 s |  24 h |  542 |  47329
+     -3 |   3600 s |   6 h |  539 |  47350
+     -3 |  21600 s |   6 h |  536 |  47342
+     -6 |    600 s |   1 h |  239 |  45225
+     -6 |    600 s |   6 h |  236 |  45207
+     -6 |    600 s |  24 h |  235 |  45171
+     -6 |   3600 s |   6 h |  234 |  45198
+     -6 |  21600 s |   6 h |  233 |  45194
+     -9 |    600 s |   1 h |  235 |  44833
+     -9 |    600 s |   6 h |  232 |  44815
+     -9 |    600 s |  24 h |  231 |  44776
+     -9 |   3600 s |   6 h |  230 |  44806
+     -9 |  21600 s |   6 h |  229 |  44802
+    -12 |    600 s |   1 h |  233 |  44237
+    -12 |    600 s |   6 h |  230 |  44219
+    -12 |    600 s |  24 h |  229 |  44180
+    -12 |   3600 s |   6 h |  227 |  44209
+    -12 |  21600 s |   6 h |  227 |  44206
+
+further settings (threshold 1e-6, identical gap 6 h unless stated) | addresses | triples | addresses not confirmed by the main rule
+   main rule | 236 | 45207 | 0
+   related pairs from 60 s (identical pairs still >= 6 h) | 245 | 45221 | 9
+   unequal-length pairs tested on their common prefix | 236 | 45209 | 0
+   both of the above | 245 | 45223 | 9
+   related equal-length pairs 60 to 600 s apart: 594 on 32 addresses; gap quantiles 0/50/100 (s): [60.0, 240.0, 600.0]
+   unequal-length pairs >= 600 s apart: 14 in 13 triples; related on the prefix: 3
+
+addresses by identical-late pairs only: 6; by related pairs: 230
+expected chance related pairs at 1e-6 among 6501641 non-identical pairs: at most 6.50
+xgw 0 bucket 0 done
+xgw 0 bucket 1 done
+xgw 0 bucket 2 done
+xgw 0 bucket 3 done
+xgw 0 bucket 4 done
+xgw 0 bucket 5 done
+xgw 0 bucket 6 done
+xgw 0 bucket 7 done
+tail_p grid agrees with audit_common.related at 1e-6 on all 1338 (k, n) values tested
+
+gateway-aware merge off (threshold 1e-6, min gap 600 s) | addresses | triples
+   identical gap   1 h | 384 | 45427
+   identical gap   6 h | 236 | 45207
+   identical gap  24 h | 235 | 45171
+   main rule with the merge off against on: addresses 236 against 236; in one but not the other 0
+   triple by triple: confirmed triples with the merge on 45207, off 45207; confirmed only with the merge off (removed by the rule) 0; only with it on 0
+done

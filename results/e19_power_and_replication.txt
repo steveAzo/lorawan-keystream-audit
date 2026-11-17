@@ -1,0 +1,15 @@
+(a) power of the test (threshold: binomial lower tail < 1e-06); changed bytes carry uniformly random XOR; unchanged bytes XOR to zero
+    n bytes | k* (max differing bits to flag) | power at unchanged-byte share 0.3 / 0.5 / 0.7 / 0.9
+          4 |    2 | 0.000 / 0.002 / 0.145 / 1.000
+          6 |    7 | 0.001 / 0.032 / 0.402 / 0.996
+          8 |   13 | 0.001 / 0.189 / 0.998 / 1.000
+         12 |   24 | 0.030 / 0.557 / 0.999 / 1.000
+         16 |   36 | 0.055 / 0.870 / 1.000 / 1.000
+         24 |   62 | 0.173 / 0.999 / 1.000 / 1.000
+         33 |   93 | 0.587 / 1.000 / 1.000 / 1.000
+
+(b) day files 188; first half 08_02_2019 to 31_05_2020 (94 files), second half 01_06_2020 to 02_09_2020 (94 files)
+frames collected: first half 280658, second half 597777
+addresses confirmed inside the first half: 95, second half: 165, both: 55, either: 205
+of the first-half addresses, share also confirmed in the second half: 58%
+done

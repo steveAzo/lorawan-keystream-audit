@@ -1,0 +1,29 @@
+
+===== brno: 422799 data uplinks on the uplink concentrator, 416459 frames, 1023 addresses
+   receptions whose MIC verifies with the Semtech default key: 113550 (26.9%), of which with FCnt above 65535: 8
+   receptions whose MIC verifies with the all-zero key: 0 (0.0%), of which with FCnt above 65535: 0
+   receptions verifying with both keys: 0 by construction (the first key that verifies is kept)
+   addresses whose frames verify only with FCnt above 65535 (upper bits 1 to 255): 2
+   addresses with at least one frame verifying under the Semtech default key: 14; frames on them 113558, of which verify 113548 (100.0%); addresses with every frame verifying 10
+   addresses with at least one frame verifying under the all-zero key: 0; frames on them 0, of which verify 0 (0.0%); addresses with every frame verifying 0
+   default-key addresses (either key): 14 of 1023 (1.4%); their frames 113558 of 416459 (27.3%)
+   ciphertext test: confirmed addresses 58; of them default-key addresses 9; default-key addresses not confirmed 5; confirmed addresses without a default key 49
+   frames in confirmed triples on default-key addresses: 101192 of 111115 (91.1%)
+   counter-flagged triples on default-key addresses: 11771; decidable (every frame verifies under a default key) 11762
+   decidable triples: keystream reuse certain 11762, absent (frames >= 600 s apart differ in key or 32-bit FCnt) 0
+   ciphertext test on decidable triples: confirmed and reuse 11753, confirmed without reuse 0, reuse not confirmed 9, neither 0; triple recall 99.9%, triple precision 100.0%; no decidable triple without reuse exists, so precision is tested only as false confirmations among the reuse triples, not against negatives
+   triples not decidable: 9, of which confirmed 9
+   addresses (decidable triples): with certain reuse 9, of which confirmed 9 (address recall 100.0%); confirmed on a decidable triple 9, of which with a confirmed triple of certain reuse 9 (address precision 100.0%)
+   reuse not confirmed, by what the ciphertext test saw: no FRMPayload or not in its flagged set 1; only unequal-length pairs 0; only identical pairs under 6 h 0; examined but unrelated 8
+
+===== wien: 303336 data uplinks on the uplink concentrator, 262671 frames, 1983 addresses
+   receptions whose MIC verifies with the Semtech default key: 0 (0.0%), of which with FCnt above 65535: 0
+   receptions whose MIC verifies with the all-zero key: 0 (0.0%), of which with FCnt above 65535: 0
+   receptions verifying with both keys: 0 by construction (the first key that verifies is kept)
+   addresses whose frames verify only with FCnt above 65535 (upper bits 1 to 255): 0
+   addresses with at least one frame verifying under the Semtech default key: 0; frames on them 0, of which verify 0 (0.0%); addresses with every frame verifying 0
+   addresses with at least one frame verifying under the all-zero key: 0; frames on them 0, of which verify 0 (0.0%); addresses with every frame verifying 0
+   default-key addresses (either key): 0 of 1983 (0.0%); their frames 0 of 262671 (0.0%)
+   ciphertext test: confirmed addresses 7; of them default-key addresses 0; default-key addresses not confirmed 0; confirmed addresses without a default key 7
+   no default-key address: no ground truth for the ciphertext test in this capture
+done

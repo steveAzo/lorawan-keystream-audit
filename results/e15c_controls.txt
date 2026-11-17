@@ -1,0 +1,18 @@
+confirmed addresses: 236  frames in confirmed triples: 193053
+top 1 / 5 / 10 / 20 addresses hold 33.8% / 91.2% / 94.9% / 96.7% of those frames
+confirmed triples per address, quantiles 25/50/75/90: [2.0, 10.0, 24.2, 41.5]  max 19512
+addresses with confirmed triples spanning > 7 days: 228
+excluding top 20: addresses 216  triples 2771  frames 6409
+bucket 0 done
+bucket 1 done
+bucket 2 done
+bucket 3 done
+bucket 4 done
+bucket 5 done
+bucket 6 done
+bucket 7 done
+same-address control (different FCnt, same size): 0 related of 20959 pairs over 176 addresses; 95% upper bound 1.4e-04
+adjacent-counter control (FCnt and FCnt+1, same size): 0 related of 14221 pairs
+placebo among confirmed addresses (different addresses, same FCnt and size): 0 related of 43237 pairs; 95% upper bound on the per-pair rate 6.9e-05
+placebo among all addresses (different addresses, same FCnt and size): 0 related of 89798 pairs; 95% upper bound on the per-pair rate 3.3e-05
+done

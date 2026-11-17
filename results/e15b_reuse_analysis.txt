@@ -1,0 +1,20 @@
+day files: 188
+bucket 0 done
+bucket 1 done
+bucket 2 done
+bucket 3 done
+bucket 4 done
+bucket 5 done
+bucket 6 done
+bucket 7 done
+gateway-aware merge: 1190 copies on disjoint gateways within 6 h merged into 1190 frames (collected receptions only)
+flagged triples with FRMPayload: 190847 on 1206 addresses; examined (a testable pair): 187884 on 1168 addresses; capped at 80 frames: 745
+unresolved triples (only identical pairs under 6 h): 2950; addresses with unresolved triples and no examined triple: 36
+triples with related or identical pairs: 45207 (24.1% of examined); with only unrelated pairs: 142677; with unequal-length pairs: 13
+confirmed addresses: 236  with >= 3 confirmed triples: 172  with >= 20: 74
+share of confirmed addresses that also show unrelated pairs (several keys behind one address): 11.0%
+frames in confirmed triples: 193053 (receptions 268176); by PHY size (top): {33: 173452, 42: 7762, 35: 4398, 17: 2318, 21: 1670, 25: 1067}
+confirmed triples with identical-late pairs 19720, with related pairs 44720; addresses confirmed only by identical-late pairs: 6
+supporting pairs per confirmed address: exactly 1: 33, 2: 12, >= 10: 139
+confirmed-triple span (days) quantiles 25/50/75/95: [12.8, 58.78, 64.59, 64.83]
+done

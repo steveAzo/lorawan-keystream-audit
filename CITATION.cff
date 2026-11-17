@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software or these results, please cite the archive below (and the paper, once published)."
+title: "lorawan-keystream-audit: code and results for 'Keystream reuse in deployed LoRaWAN traffic: a passive audit of five city captures with a calibrated ciphertext test'"
+version: v1.0.0
+date-released: 2026-11-17
+license: MIT
+# doi: add the Zenodo DOI here after the first release
+repository-code: "https://github.com/steveAzo/lorawan-keystream-audit"
+authors:
+  - family-names: Azongo
+    given-names: Stephen Kwaku
+    affiliation: "Department of Computer Science, University of Ghana"
+  - family-names: Adu-Manu
+    given-names: Kofi Sarpong
+    affiliation: "Department of Computer Science, University of Ghana"

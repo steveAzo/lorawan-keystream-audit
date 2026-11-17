@@ -1,0 +1,8 @@
+baseline false positives 0 address recall 94.2
+m1_direction_flipped false positives 11810 address recall 59.2
+m2_threshold_lax false positives 6390 address recall 100.0
+m3_offset_shifted false positives 0 address recall 1.0
+m1_direction_flipped caught
+m2_threshold_lax caught
+m3_offset_shifted caught
+mutation: 3 of 3 caught

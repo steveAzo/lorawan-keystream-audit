@@ -1,0 +1,15 @@
+frames: 469800  devices: 435  addresses: 415
+
+capture probability 0.25: groups flagged by counter test 7957, true reuse groups 4600
+  counter test : precision 57.8%  recall 100.0%
+  ciphertext   : precision 100.0%  recall 68.8%  (false positives 0)
+  ADDRESS-LEVEL at c=0.25: true reuse addresses 105, found 94 (recall 89.5%), false 0
+
+capture probability 0.72: groups flagged by counter test 27486, true reuse groups 15305
+  counter test : precision 55.7%  recall 100.0%
+  ciphertext   : precision 100.0%  recall 70.7%  (false positives 0)
+  ADDRESS-LEVEL at c=0.72: true reuse addresses 105, found 99 (recall 94.3%), false 0
+  ciphertext recall by plaintext-constant share u0: {0.3: 0.414, 0.5: 0.749, 0.7: 0.947}
+  ciphertext recall by payload length n: {8: 0.468, 12: 0.358, 20: 0.847, 24: 0.694, 40: 0.918}
+  address-level recall by u0: {0.3: 0.914, 0.5: 0.9, 0.7: 1.0}  by n: {8: 0.857, 12: 0.833, 20: 0.981, 24: 1.0, 40: 1.0}  counts by u0: {0.3: 35, 0.5: 30, 0.7: 40}
+  address level: true reuse addresses 105, ciphertext finds 99 (94%), counter test flags 177 (precision 59%), ciphertext precision 100%
