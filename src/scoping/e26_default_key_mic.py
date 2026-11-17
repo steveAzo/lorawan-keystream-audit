@@ -24,9 +24,11 @@ import base64
 
 KEYS = {1: ("Semtech default key", bytes.fromhex("2B7E151628AED2A6ABF7158809CF4F3C")), 2: ("all-zero key", bytes(16))}
 UPLINK = 1
+NT = [0]   # MIC trials, for the expected number of chance matches (each trial with a wrong key or counter matches with probability 2^-32)
 
 
 def mic(key, r, fc32):
+    NT[0] += 1
     msg = r[:-4]
     b0 = bytes([0x49, 0, 0, 0, 0, 0]) + r[1:5] + fc32.to_bytes(4, "little") + bytes([0, len(msg)])
     c = CMAC(algorithms.AES(key)); c.update(b0 + msg)
@@ -35,7 +37,8 @@ def mic(key, r, fc32):
 
 def run(zf, member):
     city = member.split(".")[0].split("_", 1)[1].lower()
-    A, F, S, T, H, GW, R = [], [], [], [], [], [], []
+    A, F, S, T, H, GW, R, FP = [], [], [], [], [], [], [], []
+    NT[0] = 0
     gw_code = {}
     for t, b64, datr, g in rows(zf, member):
         if int(g[-1:], 16) != UPLINK: continue
@@ -43,6 +46,7 @@ def run(zf, member):
         if (r[0] >> 5) not in (2, 4) or len(r) < 12 or r[0] & 0x1F: continue
         A.append(int.from_bytes(r[1:5], "little")); F.append(int.from_bytes(r[6:8], "little")); S.append(len(r)); T.append(t)
         H.append(digest(r)); GW.append(gw_code.setdefault(g, len(gw_code))); R.append(r)
+        h = 8 + (r[5] & 0x0F); FP.append(r[h] if len(r) > h + 4 else -1)   # FPort (-1: no port byte); port 0 is encrypted with NwkSKey
     n = len(R); key = np.zeros(n, np.int8); up = np.full(n, -1, np.int16)
     for i, r in enumerate(R):
         fc = F[i]
@@ -68,9 +72,23 @@ def run(zf, member):
             hi = next((h for h in range(1, 256) if mic(k, R[i], (h << 16) | F[i])), None)
             if hi is not None: key[i] = kid; up[i] = hi; break
     del R
+    vk = {}   # verified (addr, upper bits) per address, to check receptions on all concentrators on Povalac et al.'s denominator
+    for ai, kk, uu in zip(A, key.tolist(), up.tolist()):
+        if kk > 0: vk.setdefault(ai, set()).add((kk, uu))
+    n_all = n_ver = n_valid = 0
+    for t_, b64, datr, g in rows(zf, member):
+        r = base64.b64decode(b64 + "=" * (-len(b64) % 4)); n_all += 1
+        if (r[0] >> 5) in (0, 1, 2, 3, 4, 5) and not r[0] & 0x1F: n_valid += 1
+        if (r[0] >> 5) not in (2, 4) or len(r) < 12 or r[0] & 0x1F: continue
+        ai = int.from_bytes(r[1:5], "little")
+        if ai in vk and any(mic(KEYS[kk][1], r, (uu << 16) | int.from_bytes(r[6:8], "little")) for kk, uu in vk[ai]): n_ver += 1
+    print(f"   all three concentrators, all message types: CRC-valid packets {n_all}, of which with a valid MAC header {n_valid}; "
+          f"data uplinks verifying under a default key {n_ver} ({n_ver / max(n_all, 1):.1%} of CRC-valid packets, {n_ver / max(n_valid, 1):.1%} of those with a valid MAC header)")
     f, s, t, ph, gw = (np.array(x, d) for x, d in ((F, np.int64), (S, np.int64), (T, np.float64), (H, np.int64), (GW, np.int8)))
+    fp = np.array(FP, np.int16)
     first, *_ = C.frame_index([C.triple_key(a, f, s), ph], t, gw)
-    Fr = pd.DataFrame({"addr": a[first], "fcnt": f[first], "size": s[first], "t": t[first], "key": key[first], "up": up[first]})
+    Fr = pd.DataFrame({"addr": a[first], "fcnt": f[first], "size": s[first], "t": t[first], "key": key[first], "up": up[first], "fport": fp[first]})
+    print(f"   MIC trials {NT[0]}; expected chance matches at most {NT[0] / 2**32:.4f} (2^-32 per trial)")
     print(f"\n===== {city}: {n} data uplinks on the uplink concentrator, {len(Fr)} frames, {Fr.addr.nunique()} addresses", flush=True)
     for kid, (lab, _) in KEYS.items():
         m = key == kid
@@ -81,6 +99,14 @@ def run(zf, member):
     pa = Fr.groupby("addr").agg(n=("key", "size"), k1=("key", lambda x: int((x == 1).sum())), k2=("key", lambda x: int((x == 2).sum())))
     pa["dk"] = pa.k1 + pa.k2
     DK = set(pa[pa.dk > 0].index)
+    if DK:
+        q_ = pa.loc[list(DK)]
+        print(f"   default-key addresses: frames verifying per address, min / median / max: {int(q_.dk.min())} / {int(q_.dk.median())} / {int(q_.dk.max())}; "
+              f"frames on them that verify under no default key {int((q_.n - q_.dk).sum())}")
+        U = Fr[Fr.addr.isin(DK) & (Fr.key > 0)].groupby("addr").up.agg(lambda x: sorted(set(x.tolist())))
+        print(f"   upper 16 counter bits found per default-key address (each value verified by the frames' own MICs): {sorted(U.tolist())}")
+        Xf = Fr[Fr.addr.isin(DK)]
+        print(f"   FPort of frames on default-key addresses: {Xf.fport.value_counts().sort_index().to_dict()}")
     for kid, col in ((1, "k1"), (2, "k2")):
         q = pa[pa[col] > 0]
         print(f"   addresses with at least one frame verifying under the {KEYS[kid][0]}: {len(q)}; frames on them {int(q.n.sum())}, of which verify {int(q[col].sum())} "
@@ -108,8 +134,9 @@ def run(zf, member):
         truth = False
         for _, h in g[g.key > 0].groupby(["key", "up"]):
             if h.t.max() - h.t.min() >= C.MIN_GAP: truth = True; break
-        rows_.append((aa, ff, ss, dec, truth, (aa, ff, ss) in ctrip))
-    Q = pd.DataFrame(rows_, columns=["addr", "fcnt", "size", "decidable", "truth", "confirmed"])
+        ports = set(g.fport.tolist())
+        rows_.append((aa, ff, ss, dec, truth, (aa, ff, ss) in ctrip, len(ports), 0 in ports))
+    Q = pd.DataFrame(rows_, columns=["addr", "fcnt", "size", "decidable", "truth", "confirmed", "nports", "port0"])
     D = Q[Q.decidable]
     tp = int((D.truth & D.confirmed).sum()); fp = int((~D.truth & D.confirmed).sum()); fn = int((D.truth & ~D.confirmed).sum()); tn = int((~D.truth & ~D.confirmed).sum())
     print(f"   counter-flagged triples on default-key addresses: {len(Q)}; decidable (every frame verifies under a default key) {len(D)}")
@@ -117,6 +144,9 @@ def run(zf, member):
     print(f"   ciphertext test on decidable triples: confirmed and reuse {tp}, confirmed without reuse {fp}, reuse not confirmed {fn}, neither {tn}; "
           f"triple recall {tp / max(tp + fn, 1):.1%}, triple precision {tp / max(tp + fp, 1):.1%}" + ("" if tp + fp else " (no confirmed decidable triple)")
           + ("" if (~D.truth).any() else "; no decidable triple without reuse exists, so precision is tested only as false confirmations among the reuse triples, not against negatives"))
+    for lab, w in (("port 0 only (encrypted with NwkSKey, which the MIC verifies)", (D.nports == 1) & D.port0),
+                   ("one port above 0 (encrypted with AppSKey)", (D.nports == 1) & ~D.port0), ("several ports", D.nports > 1)):
+        x = D[w]; print(f"   decidable triples with {lab}: {len(x)}, confirmed {int(x.confirmed.sum())}")
     nd = Q[~Q.decidable]
     print(f"   triples not decidable: {len(nd)}, of which confirmed {int(nd.confirmed.sum())}")
     ta = set(D[D.truth].addr); ca = set(D[D.confirmed].addr); tpa = set(D[D.truth & D.confirmed].addr)

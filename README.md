@@ -28,7 +28,7 @@ Both source datasets are public and are not redistributed here, because they hol
 
 No script prints or stores a payload in clear, and no result file holds a device address; `paper_tools/scan_addresses.py` checks the
 published files against every address in the captures. The derived files that scripts write under `data/derived/` hold ciphertexts and
-addresses and stay local. `.gitignore` is an allow-list: only the files named in it are published.
+addresses and stay local. `.gitignore` lists what is not published (datasets, derived files, manuscript sources).
 
 ## Layout
 
@@ -37,7 +37,7 @@ addresses and stay local. `.gitignore` is an allow-list: only the files named in
 | `src/scoping/audit_common.py` | All detector rules in one place: frames from receptions (60 s chaining, gateway-aware merge), counter test, pairs, the relatedness rule, placebo, reset count |
 | `src/data/collect_loed.py` | LoED data uplinks from the raw zip (pass 1: every reception; pass 2: FRMPayload of triples seen at least 60 s apart) |
 | `src/data/parse_povalac.py` | Data uplinks and join requests from the Povalac and Kral sniffer logs |
-| `src/scoping/e14` to `e26` | One script per result file in `results/` (see the table below) |
+| `src/scoping/e14` to `e29` | One script per result file in `results/` (see the table below) |
 | `src/figures/fig_data.py`, `paper_tools/make_figs.py` | Figure data and Figures 1 to 7 (`draft/figs/`) |
 | `verification/jobD/` | Mutation test of the pipeline: planted errors, the LoED and Vienna test beds, and `out_summary_after_fix.txt` |
 | `results/` | Every number in the paper, as written by the scripts |
@@ -55,6 +55,10 @@ addresses and stay local. `.gitignore` is an allow-list: only the files named in
 | `e21_threshold_sensitivity.txt` | `e21_threshold_sensitivity.py` | Table 5 |
 | `e23_povalac_audit.txt`, `e24_testdevices.txt` | `e23_povalac_audit.py`, `e24_testdevices.py` | City captures |
 | `e26_default_key_mic.txt` | `e26_default_key_mic.py` | Table 4, default-key ground truth |
+| `e26b_default_key_downlinks.txt` | `e26b_default_key_downlinks.py` | Default-key share on the denominator of Povalac et al. |
+| `e27_revision_checks.txt`, `e27b_cap_totals.txt` | `e27_revision_checks.py`, `e27b_cap_totals.py` | Multiple comparisons, evidence categories, 80-frame cap, checks of the frame rule |
+| `e28_fport.txt` | `collect_loed_fport.py`, `e28_fport.py` | FPort of the LoED triples |
+| `e29_retransmission_span.txt` | `e29_retransmission_span.py` | The 6-hour identical gap |
 | `fig_*.csv`, `fig_*.txt` | `fig_data.py`, `make_figs.py` | Figures 3 to 7 |
 
 ## Reproduce
@@ -80,6 +84,12 @@ python -I src/scoping/e23_povalac_audit.py liege graz brno wien > results/e23_po
 python -I src/scoping/e24_testdevices.py data/raw/povalac_lorawan/pcap.zip > results/e24_testdevices.txt
 python -I src/scoping/e25_mutation_sim.py
 python -I src/scoping/e26_default_key_mic.py data/raw/povalac_lorawan/log.zip 07_Brno.log 05_Wien.log > results/e26_default_key_mic.txt
+python -I src/scoping/e26b_default_key_downlinks.py data/raw/povalac_lorawan/log.zip 07_Brno.log 05_Wien.log > results/e26b_default_key_downlinks.txt
+python -I src/scoping/e27_revision_checks.py > results/e27_revision_checks.txt
+python -I src/scoping/e27b_cap_totals.py > results/e27b_cap_totals.txt
+python -I src/data/collect_loed_fport.py <path>/LoED_full.zip
+python -I src/scoping/e28_fport.py > results/e28_fport.txt
+python -I src/scoping/e29_retransmission_span.py > results/e29_retransmission_span.txt
 python -I src/figures/fig_data.py
 python -I paper_tools/make_figs.py
 python -I verification/jobD/run_mutants.py loed all

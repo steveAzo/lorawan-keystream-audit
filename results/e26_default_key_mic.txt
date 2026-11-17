@@ -1,9 +1,14 @@
+   all three concentrators, all message types: CRC-valid packets 1272304, of which with a valid MAC header 1213030; data uplinks verifying under a default key 120181 (9.4% of CRC-valid packets, 9.9% of those with a valid MAC header)
+   MIC trials 2082525; expected chance matches at most 0.0005 (2^-32 per trial)
 
 ===== brno: 422799 data uplinks on the uplink concentrator, 416459 frames, 1023 addresses
    receptions whose MIC verifies with the Semtech default key: 113550 (26.9%), of which with FCnt above 65535: 8
    receptions whose MIC verifies with the all-zero key: 0 (0.0%), of which with FCnt above 65535: 0
    receptions verifying with both keys: 0 by construction (the first key that verifies is kept)
    addresses whose frames verify only with FCnt above 65535 (upper bits 1 to 255): 2
+   default-key addresses: frames verifying per address, min / median / max: 1 / 4604 / 19736; frames on them that verify under no default key 10
+   upper 16 counter bits found per default-key address (each value verified by the frames' own MICs): [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [1], [1]]
+   FPort of frames on default-key addresses: {-1: 17, 1: 113525, 8: 16}
    addresses with at least one frame verifying under the Semtech default key: 14; frames on them 113558, of which verify 113548 (100.0%); addresses with every frame verifying 10
    addresses with at least one frame verifying under the all-zero key: 0; frames on them 0, of which verify 0 (0.0%); addresses with every frame verifying 0
    default-key addresses (either key): 14 of 1023 (1.4%); their frames 113558 of 416459 (27.3%)
@@ -12,9 +17,14 @@
    counter-flagged triples on default-key addresses: 11771; decidable (every frame verifies under a default key) 11762
    decidable triples: keystream reuse certain 11762, absent (frames >= 600 s apart differ in key or 32-bit FCnt) 0
    ciphertext test on decidable triples: confirmed and reuse 11753, confirmed without reuse 0, reuse not confirmed 9, neither 0; triple recall 99.9%, triple precision 100.0%; no decidable triple without reuse exists, so precision is tested only as false confirmations among the reuse triples, not against negatives
+   decidable triples with port 0 only (encrypted with NwkSKey, which the MIC verifies): 0, confirmed 0
+   decidable triples with one port above 0 (encrypted with AppSKey): 11762, confirmed 11753
+   decidable triples with several ports: 0, confirmed 0
    triples not decidable: 9, of which confirmed 9
    addresses (decidable triples): with certain reuse 9, of which confirmed 9 (address recall 100.0%); confirmed on a decidable triple 9, of which with a confirmed triple of certain reuse 9 (address precision 100.0%)
    reuse not confirmed, by what the ciphertext test saw: no FRMPayload or not in its flagged set 1; only unequal-length pairs 0; only identical pairs under 6 h 0; examined but unrelated 8
+   all three concentrators, all message types: CRC-valid packets 1697885, of which with a valid MAC header 1569627; data uplinks verifying under a default key 0 (0.0% of CRC-valid packets, 0.0% of those with a valid MAC header)
+   MIC trials 2499792; expected chance matches at most 0.0006 (2^-32 per trial)
 
 ===== wien: 303336 data uplinks on the uplink concentrator, 262671 frames, 1983 addresses
    receptions whose MIC verifies with the Semtech default key: 0 (0.0%), of which with FCnt above 65535: 0

@@ -1,0 +1,3 @@
+07_Brno.log: CRC-valid packets 1272304; verifying under the Semtech key: data uplinks 120181 of 429434, data downlinks 86398 of 713726; together 206579 (16.2% of CRC-valid packets)
+05_Wien.log: CRC-valid packets 1697885; verifying under the Semtech key: data uplinks 0 of 303355, data downlinks 3465 of 1183880; together 3465 (0.2% of CRC-valid packets)
+done

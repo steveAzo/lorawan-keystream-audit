@@ -13,6 +13,7 @@ release/
 
 # ---- Internal notes and review records
 PAPER4_SCOPING.md
+revis.txt
 docs/
 verification/adversarial/
 verification/jobC/

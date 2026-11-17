@@ -277,19 +277,26 @@ def fig_trace():
 # ------------------------------------------------------------------ Fig. 4: z-scores of examined pairs against placebo pairs
 def fig_zscores():
     Z = pd.read_csv("results/fig_zscores.csv"); x = Z.z_left.to_numpy() + 0.125
-    fig, ax = plt.subplots(figsize=(W, 2.6))
-    for col, lab, c, ls in (("same_counter", "same DevAddr, FCnt and size (examined pairs)", BLUE, "-"),
-                            ("placebo", "placebo: different addresses, same FCnt and size", ORANGE, "--")):
-        y = Z[col].to_numpy() / Z[col].sum() / 0.25
-        ax.step(x, np.where(y > 0, y, np.nan), where="mid", color=c, ls=ls, lw=1.2, label=lab)
-    g = np.linspace(-8, 8, 400); ax.plot(g, np.exp(-g ** 2 / 2) / math.sqrt(2 * math.pi), color=MUTED, lw=0.8, ls=":", label="independent keystreams (normal limit)")
-    zt = [(C.kstar(8 * n) - 4 * n) / math.sqrt(2 * n) for n in (12, 33)]
-    ax.axvspan(-60, max(zt), color=BLUE, alpha=0.07, lw=0)
-    ax.axvline(max(zt), color=BLUE, lw=0.7)
-    ax.text(max(zt) - 0.4, 1.5e-5, "related at $10^{-6}$\n(z below about −4.8\nfor 12 to 33 bytes)", ha="right", va="bottom", fontsize=7.5, color=INK2)
+    n_ex = int(Z.same_counter.sum()); n_pl = int(Z.placebo.sum())
+    fig, ax = plt.subplots(figsize=(W, 2.9))
+    zt = [(C.kstar(8 * n) - 4 * n) / math.sqrt(2 * n) for n in range(8, 34)]   # threshold in z for 8- to 33-byte payloads
+    lo, hi = min(zt), max(zt)
+    ax.axvspan(-60, hi, color=BLUE, alpha=0.08, lw=0)
+    ax.axvline(hi, color=INK, lw=1.2)
+    ye = Z.same_counter.to_numpy() / n_ex / 0.25; yp = Z.placebo.to_numpy() / n_pl / 0.25
+    ax.step(x, np.where(ye > 0, ye, np.nan), where="mid", color=BLUE, lw=1.2)
+    ax.step(x, np.where(yp > 0, yp, np.nan), where="mid", color=ORANGE, ls="--", lw=1.6)
+    g = np.linspace(-8, 8, 400); ax.plot(g, np.exp(-g ** 2 / 2) / math.sqrt(2 * math.pi), color=INK2, lw=0.9, ls=":")
+    ax.text(hi - 0.25, 0.6, f"Threshold at $\\tau = 10^{{-6}}$:\n$z$ = {str(round(lo, 1)).replace('-', '−')} to {str(round(hi, 1)).replace('-', '−')} for 8- to\n33-byte payloads",
+            fontsize=7.5, color=INK, ha="right", va="top")
+    ax.text(-17.6, 4e-3, "Shaded:\npairs called\nrelated", fontsize=7.5, color=INK, va="top")
+    ax.text(-8.6, 2.5e-5, f"Examined pairs\n(same DevAddr, FCnt and size;\n{n_ex:,} pairs)", fontsize=7.5, color=BLUE, ha="center")
+    ax.annotate(f"Placebo pairs\n(different addresses;\n{n_pl:,} pairs)", xy=(2.4, 0.03), xytext=(3.3, 0.12), fontsize=7.5, color=ORANGE,
+                arrowprops=dict(arrowstyle="-", color=ORANGE, lw=0.6))
+    ax.annotate("Independent keystreams\n(normal limit)", xy=(-3.9, 2e-4), xytext=(-4.2, 1.6e-6), fontsize=7.5, color=INK2,
+                arrowprops=dict(arrowstyle="-", color=INK2, lw=0.6))
     ax.set_yscale("log"); ax.set_ylim(1e-6, 1); ax.set_xlim(-18, 7)
-    ax.set_xlabel("z = (k − 4n) / √(2n), k differing bits over n bytes"); ax.set_ylabel("Density of pairs")
-    ax.legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2, fontsize=7.5, handlelength=2.2, columnspacing=1.2)
+    ax.set_xlabel("Standardised bit distance $z = (k - 4n)/\\sqrt{2n}$ ($k$ differing bits over $n$ bytes)"); ax.set_ylabel("Density of pairs")
     save(fig, "fig_zscores")
 
 
@@ -325,29 +332,36 @@ def fig_sensitivity():
 
 # ------------------------------------------------------------------ Fig. 7: detection power
 def fig_power():
-    fig, ax = plt.subplots(figsize=(W, 2.45)); u = np.linspace(0, 1, 401)
-    for n, c, ls, mk in ((8, ORANGE, "--", "s"), (12, BLUE, "-", "o"), (33, AQUA, "-.", "^")):
+    fig, ax = plt.subplots(figsize=(W, 2.6)); u = np.linspace(0, 1, 401)
+    qv = [float(v) for v in re.search(r"quantiles 10/25/50/75/90: \[([^\]]+)\]", res("e17_exposure.txt")).group(1).split(",")]
+    ax.axvspan(qv[0], qv[4], color=MUTED, alpha=0.15, lw=0)
+    ax.axvline(qv[2], color=INK2, lw=0.8, ls=":")
+    ax.text(0.705, 0.52, f"Measured on related LoED pairs:\nmedian {qv[2]:.2f} (dotted line),\n10th to 90th percentile\n"
+            f"{qv[0]:.2f} to {qv[4]:.2f} (grey band).\nSelected by the test; not an\nestimate for all devices.", fontsize=7, color=INK2, va="center")
+    for n, c, ls in ((8, ORANGE, "--"), (12, BLUE, "-"), (33, AQUA, "-.")):
         k = C.kstar(8 * n)
         p = [1.0 if round((1 - x) * n) == 0 else (C.tail_p(k, 8 * round((1 - x) * n)) if k >= 0 else 0.0) for x in u]
-        ax.plot(u, p, color=c, ls=ls, lw=1.3, label=f"{n}-byte FRMPayload")
-    ax.axvline(0.55, color=MUTED, lw=0.7, ls=":"); ax.text(0.565, 0.04, "median measured\nunchanged share (0.55)", fontsize=7.5, color=INK2)
-    ax.set_xlabel("Share of plaintext bytes unchanged between the two frames"); ax.set_ylabel("Probability the pair is related")
-    ax.set_xlim(0, 1); ax.set_ylim(-0.02, 1.02); ax.legend(loc="center right", fontsize=7.5)
+        ax.plot(u, p, color=c, ls=ls, lw=1.3, label=f"{n}-byte FRMPayload (model)")
+    ax.set_xlabel("Assumed share of plaintext bytes unchanged between the two frames (model input)"); ax.set_ylabel("Probability the pair is related")
+    ax.set_xlim(0, 1); ax.set_ylim(-0.02, 1.02); ax.legend(loc="lower right", fontsize=7.5)
     save(fig, "fig_power")
 
 
 # ------------------------------------------------------------------ Fig. 8: airtime cost of the fixes
 def fig_airtime():
     D = pd.read_csv("results/e18_devices.csv"); D = D[D.resets > 0]
-    fig, ax = plt.subplots(figsize=(W, 2.45)); rng = np.random.default_rng(0)
-    cols = (("rejoin_share", "join on every reboot"), ("epoch2_cost", "2-byte epoch\nin every frame"), ("iv8_share", "8-byte random IV\nin every frame"))
-    for i, (c, lab) in enumerate(cols):
+    fig, ax = plt.subplots(figsize=(W, 2.8)); rng = np.random.default_rng(0)
+    cols = (("rejoin_up_share", "Join on every reboot:\njoin request only\n(device uplink)", BLUE, "o"),
+            ("rejoin_share", "Join on every reboot:\nrequest and accept\n(uplink and downlink)", BLUE, "o"),
+            ("epoch2_cost", "2-byte epoch\nin every frame\n(not in LoRaWAN)", ORANGE, "s"),
+            ("iv8_share", "8-byte random IV\nin every frame\n(not in LoRaWAN)", ORANGE, "s"))
+    for i, (c, lab, col, mk) in enumerate(cols):
         v = 100 * D[c].to_numpy(); xs = i + rng.uniform(-0.18, 0.18, len(v))
-        ax.scatter(xs, v, s=6, color=BLUE, alpha=0.45, lw=0)
+        ax.scatter(xs, v, s=6, color=col, alpha=0.45, lw=0, marker=mk)
         med = np.median(v); ax.plot([i - 0.28, i + 0.28], [med, med], color=INK, lw=1.4)
-        ax.text(i + 0.31, med, f"median {med:.2f}%", va="center", fontsize=7.5, color=INK)
-    ax.set_yscale("log"); ax.set_xticks(range(3)); ax.set_xticklabels([l for _, l in cols]); ax.set_xlim(-0.5, 2.95)
-    ax.set_ylabel("Added airtime (% of uplink airtime)"); ax.grid(axis="x", visible=False)
+        ax.text(i + 0.30, med, f"{med:.2f}%", va="center", fontsize=7.5, color=INK)
+    ax.set_yscale("log"); ax.set_xticks(range(len(cols))); ax.set_xticklabels([l for _, l, _, _ in cols], fontsize=7.5); ax.set_xlim(-0.5, len(cols) - 0.3)
+    ax.set_ylabel("Added airtime (% of the\naddress's uplink airtime)"); ax.grid(axis="x", visible=False)
     save(fig, "fig_airtime")
 
 

@@ -1,0 +1,7 @@
+receptions without a port (digest not found): 0
+flagged triples 190847; with port information 190847
+   one port, port 0: triples 9 on 9 addresses; examined 9; confirmed 2 (22.2% of examined) on 2 addresses
+   one port above 0: triples 190580 on 1182 addresses; examined 187627; confirmed 45205 (24.1% of examined) on 234 addresses
+   several ports: triples 258 on 25 addresses; examined 248; confirmed 0 (0.0% of examined) on 0 addresses
+confirmed addresses whose confirmed triples are all on ports above 0: 234 of 236
+done

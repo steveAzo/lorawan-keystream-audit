@@ -1,0 +1,5 @@
+PHY payload 33 B at SF12: airtime 1.81 s, 1% duty-cycle off-time 179 s; 8 transmissions span at most 24 min
+PHY payload 33 B at SF12: airtime 1.81 s, 1% duty-cycle off-time 179 s; 15 transmissions span at most 45 min
+PHY payload 64 B at SF12: airtime 2.79 s, 1% duty-cycle off-time 277 s; 8 transmissions span at most 37 min
+PHY payload 64 B at SF12: airtime 2.79 s, 1% duty-cycle off-time 277 s; 15 transmissions span at most 70 min
+done

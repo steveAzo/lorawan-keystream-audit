@@ -1,0 +1,81 @@
+xgw 21600 bucket 0 done
+xgw 21600 bucket 1 done
+xgw 21600 bucket 2 done
+xgw 21600 bucket 3 done
+xgw 21600 bucket 4 done
+xgw 21600 bucket 5 done
+xgw 21600 bucket 6 done
+xgw 21600 bucket 7 done
+
+[0] reproduction: flagged triples with FRMPayload 190847; examined 187884; confirmed triples 45207 on 236 addresses
+
+[1] multiple comparisons (tau = 1e-6 per pair; m = non-identical equal-length pairs tested)
+   pairs tested: 6501641; triples with a tested pair 187408
+   pairs per triple, quantiles 50/90/99/max: [3.0, 10.0, 1176.0, 3160.0]; triples with m = 1: 80871 (43.2%)
+   pairs per address (addresses with a tested pair: 1162), quantiles 50/90/99/max: [10.0, 17405.2, 20519.8, 606885.0]
+   union bound on chance confirmations under the null: triples <= 6.50; addresses <= 6.50 (sum over examined units of min(1, m x tau))
+   addresses confirmed by related pairs (main): 230; their family-wise bound m x tau, quantiles 50/90/max: ['1.4e-05', '3.4e-04', '5.6e-01']
+   triple-level Bonferroni (tau / m per triple): addresses with a related pair 228 of 230; triples 44648
+   address-level Bonferroni (tau / M per address): addresses with a related pair 227 of 230
+   study-level Bonferroni, family-wise 1e-6 (tau = 1e-6 / 6501641): addresses with a related pair 218 of 230
+   study-level Bonferroni, family-wise 0.05 (tau = 0.05 / 6501641): addresses with a related pair 227 of 230
+   addresses confirmed only by identical pairs >= 6 h (no p-value; unaffected by tau): 6
+   addresses with related pairs that fail study-level family-wise 1e-6: 12; of these with one related triple: 8
+   related triples per address (addresses with related pairs): 1: 48, 2: 12, >= 3: 170
+   min log10 p of related triples, quantiles 50/10/1: [-40.7, -46.0, -46.0]; weakest -6.03
+
+[2] evidence categories by identical gap (related pairs: tau 1e-6, gap >= 10 min)
+   identical gap | addresses: related | identical only | total | unresolved (no examined triple) || triples: related | identical only | unresolved
+     1 h | 230 | 9 | 239 | 34 || 44720 | 505 | 2932
+     2 h | 230 | 6 | 236 | 36 || 44720 | 493 | 2944
+     3 h | 230 | 6 | 236 | 36 || 44720 | 491 | 2946
+     6 h | 230 | 6 | 236 | 36 || 44720 | 487 | 2950
+    12 h | 230 | 6 | 236 | 36 || 44720 | 484 | 2952
+    24 h | 230 | 5 | 235 | 37 || 44720 | 451 | 2983
+    48 h | 230 | 5 | 235 | 37 || 44720 | 446 | 2987
+   the 6 identical-only addresses: triples 15; their longest identical gap per address (h): [12.7, 95.9, 112.4, 792.8, 1083.7, 1688.5]
+
+[3] the 80-frame cap
+   triples with more than 80 frames: 745 of 190847 (0.39%), on 265 addresses; their frames 82099 of 863899 (9.5%); frames beyond the cap 22499
+   pairs >= 10 min apart on these triples: all frames 5431107, first 80 2353361, left out 3077746
+   first 80 (main): capped triples confirmed 107 on 8 addresses
+   80 spread evenly: capped triples confirmed 107 on 8 addresses
+   all frames: capped triples confirmed 109 on 10 addresses
+   addresses confirmed only when all frames of the capped triples are tested: 2; triples confirmed with all frames but not on the first 80: 2; on the first 80 but not with all frames: 0
+   addresses confirmed only with the evenly spread sample: 1
+
+[4a] gateway-aware merge window | flagged triples (FRMPayload) | examined | confirmed triples | confirmed addresses | unresolved triples | unresolved addresses
+   6 h (main) | 190847 | 187884 | 45207 | 236 | 2950 | 36
+xgw 3600 bucket 0 done
+xgw 3600 bucket 1 done
+xgw 3600 bucket 2 done
+xgw 3600 bucket 3 done
+xgw 3600 bucket 4 done
+xgw 3600 bucket 5 done
+xgw 3600 bucket 6 done
+xgw 3600 bucket 7 done
+   1 h | 191046 | 187884 | 45207 | 236 | 3149 | 137   (confirmed triples with the 6-h merge and not here: 0; here and not with the 6-h merge: 0)
+xgw 0 bucket 0 done
+xgw 0 bucket 1 done
+xgw 0 bucket 2 done
+xgw 0 bucket 3 done
+xgw 0 bucket 4 done
+xgw 0 bucket 5 done
+xgw 0 bucket 6 done
+xgw 0 bucket 7 done
+   off | 191172 | 187884 | 45207 | 236 | 3275 | 137   (confirmed triples with the 6-h merge and not here: 0; here and not with the 6-h merge: 0)
+
+[4b] consecutive frames with the same (DevAddr, FCnt, size, PHY payload), all data uplinks, merge off
+   consecutive same-payload frame pairs: 63773
+   gap | overlapping gateways | disjoint: 1 vs 1 | 1 vs >=2 | >=2 vs >=2
+   1-10 min | 16861 | 998 | 0 | 0
+   10 min-1 h | 4718 | 118 | 0 | 0
+   1-6 h | 11368 | 223 | 3 | 0
+   >= 6 h | 26495 | 2983 | 6 | 0
+
+[4c] copies on disjoint gateways 10 min to 6 h apart: 344; (gateway set, gateway set) pairs 11; gateway sets with 3+ gateways on either side 0
+   within 1 s of the median gap of their (gateway pair, day): 77.6%   (groups of at least 5 copies: 78.2% of 220)
+   within 10 s of the median gap of their (gateway pair, day): 78.8%   (groups of at least 5 copies: 78.6% of 220)
+   within 60 s of the median gap of their (gateway pair, day): 79.4%   (groups of at least 5 copies: 79.1% of 220)
+   median gaps (h) of the five largest (gateway pair, day) groups: [1.193, 1.193, 0.833, 1.193, 1.193]
+done

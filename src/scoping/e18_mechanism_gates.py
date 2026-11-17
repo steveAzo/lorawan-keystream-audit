@@ -2,7 +2,8 @@
 Gate A (detector): the counter-rollback test against the ciphertext test, on two stated definitions of the counter test's flagged set:
   (i) all addresses with a triple seen twice >= 10 min apart (no payload needed), (ii) addresses with an examined triple (a testable pair).
 Gate B (retrofit): per confirmed address, reset cadence over OBSERVED days (the capture is two blocks; the gap between them is not counted) and the airtime
-of three fixes. Airtime: Semtech formula, 125 kHz, CR 4/5, 8-symbol preamble; join request 23 B; join accept 17 B at the uplink SF.
+of three fixes. Airtime: Semtech formula, 125 kHz, CR 4/5, 8-symbol preamble; join request 23 B (device uplink); join accept 17 B (network downlink, at the uplink SF, as in RX1);
+the rejoin cost is reported in total and per direction, each as a share of the address's own uplink airtime.
 Input: the pass-1 table of collect_loed.py (one row per reception). Gate A on frames with the gateway-aware merge (main) and without it;
 Gate B on frames built by audit_common (same PHY payload, gateway-aware merge) and resets counted by
 audit_common.counter_resets (a 16-bit wrap and two devices interleaving behind one address are not resets); results are per address. Writes results/e18_devices.csv (per address, no address column) and data/derived/e18_devices_addr.csv (with
@@ -14,11 +15,14 @@ import audit_common as C
 
 G = pd.read_parquet("results/e15_groups.parquet")
 conf = set(int(x) for x in G[G.reuse].addr); ex = set(int(x) for x in G[G.examined].addr)
-u = np.load(C.LOED_UPLINKS)
-a, f, s, t = u["addr"], u["fcnt"].astype(np.int64), u["size"].astype(np.int64), u["t"]
+z = np.load(C.LOED_UPLINKS)   # each npz access decompresses a copy: read every column once (memory: 3.7 GB machine)
+u = {k: z[k] for k in ("addr", "fcnt", "size", "t", "phy", "gw", "sf", "names")}; del z
+a = u["addr"]
 for lab, xw in (("without the gateway-aware merge", 0), ("with the gateway-aware merge (main)", C.XGW_WIN)):
-    Fr = C.uplink_frames(u, xgw_win=xw)
-    fa, *_ = C.counter_test(Fr["addr"], Fr["fcnt"], Fr["size"], Fr["t"]); flag = set(fa.tolist())
+    flag = set()
+    for b in range(4):   # by address bucket: frames and triples never span addresses, so the union is exact (memory)
+        Fr = C.uplink_frames(u, mask=(a % 4) == b, xgw_win=xw)
+        fa, *_ = C.counter_test(Fr["addr"], Fr["fcnt"], Fr["size"], Fr["t"]); flag |= set(fa.tolist()); del Fr, fa
     print(f"Gate A: (i) counter-flagged addresses, frames {lab}: {len(flag)}, confirmed {len(conf)} (all flagged: {conf <= flag}), precision {len(conf)/len(flag):.1%}")
 print(f"        (ii) addresses with an examined triple {len(ex)}, confirmed {len(conf)}, precision {len(conf)/len(ex):.1%}")
 print(f"        examined triples {int(G.examined.sum())}, confirmed {int(G.reuse.sum())}, precision {G.reuse.sum()/G.examined.sum():.1%}")
@@ -48,14 +52,16 @@ for i, j in zip(st, en):
     k = max(1, len(z) // 300); smp = [(int(p), int(q)) for p, q in zip(z[::k], s_[::k]) if q > 0]
     sl = np.array([slack(p, q) for p, q in smp])
     rows.append(dict(addr=int(a[i]), frames=len(ff_), days=days, resets=resets, resets_per_day=resets / days, sf=sfm, pl=pl,
-                     rejoin_share=resets / days * a_join / (a_up * per_day), iv8_share=(air(pl + 8, sfm) - a_up) / a_up,
+                     rejoin_share=resets / days * a_join / (a_up * per_day), rejoin_up_share=resets / days * air(23, sfm) / (a_up * per_day),
+                     rejoin_dn_share=resets / days * air(17, sfm) / (a_up * per_day), iv8_share=(air(pl + 8, sfm) - a_up) / a_up,
                      slack_ge2=float((sl >= 2).mean()), epoch2_cost=float(np.mean([air(p + 2, q) - air(p, q) for p, q in smp])) / a_up))
 R = pd.DataFrame(rows); r = R[R.resets > 0]
 print(f"\nGate B: confirmed addresses with >= 20 frames: {len(R)}, with at least one counter reset: {len(r)}; counter drops of more than 64: {drops}, "
       f"of which 16-bit wraps {wraps}; counted as resets {int(R.resets.sum())}")
 print("resets per observed day (median / p90 / max): %.3f / %.2f / %.1f" % (r.resets_per_day.median(), r.resets_per_day.quantile(.9), r.resets_per_day.max()))
 print("SF of these addresses:", R.sf.value_counts().sort_index().to_dict(), " PHY size top:", R.pl.value_counts().head(4).to_dict())
-for name, c in (("rejoin on every boot", "rejoin_share"), ("8-byte random IV in payload", "iv8_share"), ("2-byte epoch with no slack use", "epoch2_cost")):
+for name, c in (("rejoin on every boot", "rejoin_share"), ("rejoin on every boot, join request only (device uplink)", "rejoin_up_share"),
+                ("rejoin on every boot, join accept only (network downlink)", "rejoin_dn_share"), ("8-byte random IV in payload", "iv8_share"), ("2-byte epoch with no slack use", "epoch2_cost")):
     print(f"airtime added, share of the address's uplink airtime, {name}: median {r[c].median():.2%}  p90 {r[c].quantile(.9):.2%}  mean {r[c].mean():.2%}")
 print("frames with slack >= 2 B: median across addresses %.0f%%" % (100 * R.slack_ge2.median()))
 os.makedirs("data/derived", exist_ok=True)
