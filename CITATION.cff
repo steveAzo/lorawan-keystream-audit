@@ -4,7 +4,7 @@ title: "lorawan-keystream-audit: code and results for 'Keystream reuse in deploy
 version: v1.0.0
 date-released: 2026-11-17
 license: MIT
-# doi: add the Zenodo DOI here after the first release
+doi: 10.5281/zenodo.23455070
 repository-code: "https://github.com/steveAzo/lorawan-keystream-audit"
 authors:
   - family-names: Azongo
